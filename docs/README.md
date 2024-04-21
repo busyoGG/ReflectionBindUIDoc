@@ -6,6 +6,7 @@
 
 * 本文档使用[docsify](https://docsify.js.org/#/zh-cn/)构建。
 * 项目工程见[ReflectionBindUI](https://github.com/busyoGG/ReflectionBindUI)。
+* 本项目使用FGUI，如需使用UGUI或其他，请自行调整UI获取的方法以及相关UI行为的方法（如拖拽的实现）。
 * 脚本需要继承 `BaseView`（带手动调用的生命周期）或 `UIBase`（没有生命周期）。
 * 项目原理说明见[Unity-利用特性反射来绑定UI](https://busyo.buzz/article/999bc53b642c/)。
 
