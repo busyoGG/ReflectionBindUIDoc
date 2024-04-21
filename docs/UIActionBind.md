@@ -1,0 +1,106 @@
+# UI行为绑定
+
+## 使用方法
+
+在UI类中，在对应方法上添加一个特性标签。标签由三个参数组成：
+
+1. UI类型。
+2. UI路径。
+3. 额外参数。
+
+```C# 
+//UI行为为Click，绑定根界面的索引为2的元素
+[UIActionBind(UIAction.Click, "2")]
+private void OnBtnClick()
+{
+    ConsoleUtils.Log("点击了按钮");
+    EventManager.TriggerEvent("show_console", null);
+}
+```
+
+## 类型表
+
+|类型|枚举|额外参数|
+|:-:|:-:|:-:|
+|列表渲染函数|ListRender||
+|列表单元格类型辅助函数|ListProvider||
+|列表点击事件监听函数|ListClick||
+|点击事件|Click||
+|拖拽开始|DragStart|Self:自体拖拽|
+|拖拽移动过程中|DragHold|Self:自体拖拽|
+|拖拽结束|DragEnd|Self:自体拖拽|
+|放置|Drop||
+
+## 特殊情况
+
+### 拖拽
+
+拖拽有三种触发情况：
+
+1. 开始拖拽，执行一次。
+2. 拖拽过程中，每帧执行。
+3. 拖拽结束，执行一次。
+
+拖拽到对应UI放置的数据，需要通过内置的方法 `AddDropData` 传递。
+
+```C# 
+[UIActionBind(UIAction.DragEnd, "2", "Self")]
+private void OnDrag(EventContext context)
+{
+    //添加拖拽数据
+    AddDropData(1, 2, "测试数据");
+    Debug.Log("结束拖拽");
+}
+```
+
+对于放置的对象，系统内部会自动把拖拽数据传递给目标对象，因此要保证方法接收一个 `object` 参数。
+
+```C# 
+[UIActionBind(UIAction.Drop, "3")]
+private void OnDrop(object data)
+{
+    ConsoleUtils.Log("拖拽放置", data);
+}
+```
+
+每次拖拽开始的时候都会清除上一次的拖拽数据。
+
+### 列表元素拖拽
+
+在列表中，我们有时候也需要进行拖拽操作，这时候打标签的方法就难以实现。
+
+因此在列表中进行拖拽的时候，引入了手动绑定的方法。
+
+`SetDrag` 为绑定拖拽，传入三个参数：
+
+1. 拖拽类型。
+2. 目标UI组件。
+3. 拖拽方法。
+
+`SetDrop` 绑定放置，传入两个参数：
+
+1. 目标UI组件。
+2. 放置方法。
+
+```C# 
+[UIActionBind(UIAction.ListRender, "1")]
+private void ItemRenderer(int index, GObject item)
+{
+    GComponent comp = item as GComponent;
+    GTextField content = comp.GetChildAt(0).asTextField;
+
+    content.text = _testList.Get()[index];
+
+    //绑定拖拽
+    SetDrag(UIAction.DragStart, comp, () =>
+    {
+        ConsoleUtils.Log("开始拖拽");
+        AddDropData(index);
+    });
+
+    //绑定放置
+    SetDrop(comp, (object data) => { ConsoleUtils.Log("放置", data); });
+}
+```
+
+由于在列表拖拽的时候阻止了列表的滚动，因此注意在Item之间留出足够的空隙给滚动功能使用或通过其他方法滚动。
