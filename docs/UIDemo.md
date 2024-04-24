@@ -21,3 +21,7 @@
 ### List拖拽|手动设置拖拽
 
 <video src='https://video.spup.buzz/2024-04-21-19-50-52.mov'></video>
+
+### 窗口缓动
+
+<video src='https://video.spup.buzz/2024-04-25-00-22-34.mov'></video>

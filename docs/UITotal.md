@@ -10,11 +10,15 @@
 
 ## 基本用法
 
+### 使用方式
+
 基本用法请见导航栏UI绑定部分内容。
 
 所有绑定的数据都必须是 `StringUIProp`、`DoubleUIProp`、`UIListProp` 其中一种。
 
 其中 `UIListProp` 保存的数据是 `List<T>` 类型，数据更新的时候只更新 UI 列表元素的渲染数量，即 `numItems`。渲染函数对应索引的数据请自行获取。
+
+### UI获取
 
 UI元素路径，即 path ，可以通过两种方式设置。
 
@@ -22,6 +26,24 @@ UI元素路径，即 path ，可以通过两种方式设置。
 2. UI名字。
 
 虽然有两种获取 UI 的方式，但是传入的数据都是 `string` 类型，索引也不例外。
+
+### 更新数据
+
+本项目的数据和UI是双向绑定的。
+
+只需要使用Set方法设置数据即可，UI自己会更新。
+
+```C#
+//设置了装载器的图片路径，装载器组件会自动设置src="ui://Test/Icon"
+_loaderUrl.Set("ui://Test/Icon");
+```
+
+如果UI更新了数据，则通过Get方法获取的时候会自动更新。
+
+```C#
+//获取参数的值
+_loaderUrl.Get();
+```
 
 > 注意：UI监听使用 [事件管理器](https://github.com/busyoGG/EventManagerForUnity) 项目的事件系统，如果需要使用自己的事件监听方法请参考导航栏中的拓展选项。
 
