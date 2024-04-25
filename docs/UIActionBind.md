@@ -117,3 +117,12 @@ private void ItemRenderer(int index, GObject item)
 3. follow，是否跟随鼠标，默认false。
 
 在鼠标移出UI之后，悬浮窗会自动隐藏。
+
+```C# 
+[UIActionBind(UIAction.Hover,"6")]
+private void ShowHint()
+{
+    ShowFloatView<HintView>("input_hint","HintView",true);
+    ConsoleUtils.Log("显示悬浮窗");
+}
+```

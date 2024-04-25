@@ -28,4 +28,4 @@
 
 ## 悬浮窗提示
 
-<video src='https://video.spup.buzz/'2024-04-25-18-07-21.mov></video>
+<video src='https://video.spup.buzz/2024-04-25-18-07-21.mov'></video>
