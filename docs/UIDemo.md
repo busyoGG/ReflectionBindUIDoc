@@ -25,3 +25,7 @@
 ## 窗口缓动
 
 <video src='https://video.spup.buzz/2024-04-25-00-22-34.mov'></video>
+
+## 悬浮窗提示
+
+<video src='https://video.spup.buzz/'2024-04-25-18-07-21.mov></video>

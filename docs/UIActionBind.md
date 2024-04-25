@@ -30,6 +30,7 @@ private void OnBtnClick()
 |拖拽移动过程中|DragHold|Self:自体拖拽|
 |拖拽结束|DragEnd|Self:自体拖拽|
 |放置|Drop||
+|悬浮|Hover||
 
 ## 特殊情况
 
@@ -104,3 +105,15 @@ private void ItemRenderer(int index, GObject item)
 ```
 
 由于在列表拖拽的时候阻止了列表的滚动，因此注意在Item之间留出足够的空隙给滚动功能使用或通过其他方法滚动。
+
+### 悬浮窗提示
+
+悬浮窗需要在悬浮事件中调用 `ShowFloatView` 方法。
+
+该方法需要一个悬浮窗的泛型 T ，以及3个额外参数：
+
+1. name，唯一标识符。
+2. UIName，悬浮窗名，用于FGUI创建界面。
+3. follow，是否跟随鼠标，默认false。
+
+在鼠标移出UI之后，悬浮窗会自动隐藏。
