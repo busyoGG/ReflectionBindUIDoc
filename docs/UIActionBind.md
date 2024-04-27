@@ -31,6 +31,8 @@ private void OnBtnClick()
 |拖拽结束|DragEnd|Self:自体拖拽|
 |放置|Drop||
 |悬浮|Hover||
+|滑动条|Slider||
+|下拉框|ComboBox||
 
 ## 特殊情况
 

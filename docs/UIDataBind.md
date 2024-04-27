@@ -16,12 +16,13 @@ private StringUIProp _testText { get; set; }
 
 ## 类型表
 
-|类型|枚举|额外参数|
-|:-:|:-:|:-:|
-|组件|Comp||
-|文本|TextField||
-|输入框|TextInput||
-|装载器|Loader||
-|列表|List|仅用于同类型Item <br>height:自适应高度 <br> width:自适应宽度|
-|滑动条|Slider||
-|图片|Image||
+|类型|枚举|参数类型|额外参数|
+|:-:|:-:|:-:|:-:|
+|组件|Comp|None||
+|文本|TextField|StringUIProp||
+|输入框|TextInput|StringUIProp||
+|装载器|Loader|StringUIProp||
+|列表|List|ListUIProp|仅用于同类型Item <br>height:自适应高度 <br> width:自适应宽度|
+|滑动条|Slider|DoubleUIProp||
+|图片|Image|StringUIProp||
+|下拉框|ComboBox|DoubleUIProp(索引)|选项内容|
