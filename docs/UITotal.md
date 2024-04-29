@@ -4,7 +4,7 @@
 
 利用特性 Attribute 来反射初始化 UI 组件，使其和数据进行双向绑定，更新数据的时候同步更新 UI，更新 UI 的时候同步更新数据（只更新当前界面定义的数据，原始数据需要手动更新）。
 
-在此基础上拓展了 UI 动作绑定和UI监听绑定，这样只需要对方法标记特性，就可以自动完成对应的绑定工作。
+在此基础上拓展了 UI 动作绑定和 UI 监听绑定，这样只需要对方法标记特性，就可以自动完成对应的绑定工作。
 
 基本上每一个功能和属性都只专注于其自身，只有在需要手动获取某个 UI 元素并且进行操作的时候会在实现代码中产生交叉。
 
@@ -18,9 +18,9 @@
 
 其中 `UIListProp` 保存的数据是 `List<T>` 类型，数据更新的时候只更新 UI 列表元素的渲染数量，即 `numItems`。渲染函数对应索引的数据请自行获取。
 
-### UI获取
+### UI 获取
 
-UI 元素路径，即 path ，可以通过两种方式设置。
+UI 元素路径，即 path，可以通过两种方式设置。
 
 1. 索引数字。
 2. UI 名字。
@@ -45,7 +45,7 @@ _loaderUrl.Set("ui://Test/Icon");
 _loaderUrl.Get();
 ```
 
-> 注意：UI监听使用 [事件管理器](https://github.com/busyoGG/EventManagerForUnity) 项目的事件系统，如果需要使用自己的事件监听方法请参考导航栏中的拓展选项。
+> 注意：UI 监听使用 [事件管理器](https://github.com/busyoGG/EventManagerForUnity) 项目的事件系统，如果需要使用自己的事件监听方法请参考导航栏中的拓展选项。
 
 ### UI 管理器
 
@@ -105,6 +105,41 @@ UINode node = UIManager.Ins().GetUI("TestView0");
 ```C# 
 UIManager.Ins().DisposeUI(uiNode);
 ```
+
+### BaseView 生命周期
+
+```mermaid
+flowchart TB;
+    
+    subgraph A["OnAwake 生命周期"]
+        OnAwake --> Bind --> BindClass;
+    end
+
+    subgraph B["Show 生命周期"]
+        Show --> TweenIn --> OnShow;
+    end
+
+    subgraph C["Hide 生命周期"]
+        Hide --> TweenOut --> OnHide;
+    end
+    
+    InitConfig --> A;
+    A --> B;
+    B --> C;
+    C --> Dispose;
+```
+
+Show 和 Hide 方法每次显示隐藏的时候都会调用。
+
+InitConfig 和 OnAwake 方法只有在第一次创建窗口的时候会调用。
+
+可以重写的生命周期：
+
+* InitConfig: 初始化配置。
+* OnShow: UI 展示事件。
+* OnHide: UI 隐藏事件。
+* TweenIn: 展示缓动。
+* TweenOut: 隐藏缓动。
 
 ## 案例
 
@@ -231,11 +266,6 @@ public class TestView : BaseView
     //     AddTween(TweenTarget.ScaleX,0.5f,2000,TweenEaseType.CircOut);
     //     
     //     AddTween(TweenTarget.Rotation,50,2000,TweenEaseType.CircOut);
-    // }
-    //
-    // protected override void LateOnShow()
-    // {
-    //     ConsoleUtils.Log("缓动回调",Time.time);
     // }
 
     // protected override void TweenOut()

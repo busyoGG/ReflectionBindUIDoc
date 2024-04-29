@@ -11,14 +11,14 @@
 AddTween(TweenTarget.X,500,2000,TweenEaseType.CircOut);
 ```
 
-`AddTween` 有5个参数：
+`AddTween` 有 5 个参数：
 
-|参数|描述|
+|参数 | 描述 |
 |:-:|:-:|
-|target|缓动目标|
-|end|目标值，缓动对象从原值经过**目标值**到达新的值 <br>目标值有两种类型，一种是float，一种是Vector2|
-|duration|持续时间，单位毫秒|
-|ease|插值函数，决定每帧插值的比例，可以实现线性或由快到慢等效果|
+|target|缓动目标 |
+|end|目标值，缓动对象从原值经过**目标值**到达新的值 <br>目标值有两种类型，一种是 float，一种是 Vector2|
+|duration|持续时间，单位毫秒 |
+|ease|插值函数，决定每帧插值的比例，可以实现线性或由快到慢等效果 |
 |callback|回到函数，缓动结束后触发|
 
 ### 打开窗口
@@ -45,7 +45,7 @@ protected override void TweenIn()
 ```
 
 ```C# 回调
-protected override void LateOnShow()
+protected override void OnShow()
 {
     ConsoleUtils.Log("缓动回调");
 }
@@ -65,7 +65,7 @@ protected override void TweenOut()
 ```
 
 ```C# 回调
-protected override void LateOnH()
+protected override void OnHide()
 {
     ConsoleUtils.Log("缓动回调");
 }
@@ -73,17 +73,17 @@ protected override void LateOnH()
 
 ## 类型表
 
-|类型|描述|
+|类型 | 描述 |
 |:-:|:-:|
-|None|无缓动，主要是内部使用，对齐缓动回调时机|
-|X|X坐标缓动|
-|Y|Y坐标缓动|
-|Position|XY坐标缓动|
-|Size|宽高缓动|
-|ScaleX|X缩放缓动|
-|ScaleY|Y缩放缓动|
-|Scale|XY缩放缓动|
-|Rotation|旋转缓动|
-|Alpha|透明度缓动|
-|Heihgt|高度缓动|
+|None|无缓动，主要是内部使用，对齐缓动回调时机 |
+|X|X 坐标缓动 |
+|Y|Y 坐标缓动 |
+|Position|XY 坐标缓动 |
+|Size|宽高缓动 |
+|ScaleX|X 缩放缓动 |
+|ScaleY|Y 缩放缓动 |
+|Scale|XY 缩放缓动 |
+|Rotation|旋转缓动 |
+|Alpha|透明度缓动 |
+|Heihgt|高度缓动 |
 |Width|宽度缓动|
