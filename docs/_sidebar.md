@@ -7,4 +7,5 @@
 * [UI数据绑定](/UIDataBind)
 * [UI行为绑定](/UIActionBind)
 * [UI事件绑定](/UIListenerBind)
+* [UI类绑定](/UIClassBind)
 * [窗口缓动动画](/UITween)
