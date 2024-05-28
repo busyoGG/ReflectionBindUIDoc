@@ -1,12 +1,11 @@
-# UI行为绑定
+# UI 行为绑定
 
 ## 使用方法
 
-在UI类中，在对应方法上添加一个特性标签。标签由三个参数组成：
+在 UI 类中，在对应方法上添加一个特性标签。标签由两个个参数组成：
 
-1. UI类型。
-2. UI路径。
-3. 额外参数。
+1. UI 类型。
+2. UI 路径。
 
 ```C# 
 //UI行为为Click，绑定根界面的索引为2的元素
@@ -20,19 +19,19 @@ private void OnBtnClick()
 
 ## 类型表
 
-|类型|枚举|额外参数|
+|类型 | 枚举 | 辅助特性 |
 |:-:|:-:|:-:|
-|列表渲染函数|ListRender||
-|列表单元格类型辅助函数|ListProvider||
-|列表点击事件监听函数|ListClick||
-|点击事件|Click||
-|拖拽开始|DragStart|Self:自体拖拽|
-|拖拽移动过程中|DragHold|Self:自体拖拽|
-|拖拽结束|DragEnd|Self:自体拖拽|
-|放置|Drop||
-|悬浮|Hover||
-|滑动条|Slider||
-|下拉框|ComboBox||
+|列表渲染函数|UIAction.ListRender||
+|列表单元格类型辅助函数|UIAction.ListProvider||
+|列表点击事件监听函数|UIAction.ListClick||
+|点击事件|UIAction.Click||
+|拖拽开始|UIAction.DragStart|UICondition(bool)：判断是否自体拖拽 |
+|拖拽移动过程中|UIAction.DragHold|UICondition(bool)：判断是否自体拖拽 |
+|拖拽结束|UIAction.DragEnd|UICondition(bool)：判断是否自体拖拽 |
+|放置|UIAction.Drop||
+|悬浮|UIAction.Hover||
+|滑动条|UIAction.Slider||
+|下拉框|UIAction.ComboBox||
 
 ## 特殊情况
 
@@ -44,10 +43,10 @@ private void OnBtnClick()
 2. 拖拽过程中，每帧执行。
 3. 拖拽结束，执行一次。
 
-拖拽到对应UI放置的数据，需要通过内置的方法 `AddDropData` 传递。
+拖拽到对应 UI 放置的数据，需要通过内置的方法 `AddDropData` 传递。
 
 ```C# 
-[UIActionBind(UIAction.DragEnd, "2", "Self")]
+[UIActionBind(UIAction.DragEnd, "2"),UICondition(false)]
 private void OnDrag(EventContext context)
 {
     //添加拖拽数据
@@ -77,12 +76,12 @@ private void OnDrop(object data)
 `SetDrag` 为绑定拖拽，传入三个参数：
 
 1. 拖拽类型。
-2. 目标UI组件。
+2. 目标 UI 组件。
 3. 拖拽方法。
 
 `SetDrop` 绑定放置，传入两个参数：
 
-1. 目标UI组件。
+1. 目标 UI 组件。
 2. 放置方法。
 
 ```C# 
@@ -106,19 +105,19 @@ private void ItemRenderer(int index, GObject item)
 }
 ```
 
-由于在列表拖拽的时候阻止了列表的滚动，因此注意在Item之间留出足够的空隙给滚动功能使用或通过其他方法滚动。
+由于在列表拖拽的时候阻止了列表的滚动，因此注意在 Item 之间留出足够的空隙给滚动功能使用或通过其他方法滚动。
 
 ### 悬浮窗提示
 
 悬浮窗需要在悬浮事件中调用 `ShowFloatView` 方法。
 
-该方法需要一个悬浮窗的泛型 T ，以及3个额外参数：
+该方法需要一个悬浮窗的泛型 T，以及 3 个额外参数：
 
 1. name，唯一标识符。
-2. UIName，悬浮窗名，用于FGUI创建界面。
-3. follow，是否跟随鼠标，默认false。
+2. UIName，悬浮窗名，用于 FGUI 创建界面。
+3. follow，是否跟随鼠标，默认 false。
 
-在鼠标移出UI之后，悬浮窗会自动隐藏。
+在鼠标移出 UI 之后，悬浮窗会自动隐藏。
 
 ```C# 
 [UIActionBind(UIAction.Hover,"6")]
