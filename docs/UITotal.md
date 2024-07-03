@@ -57,20 +57,20 @@ _loaderUrl.Get();
 
 管理器当前 UI 路径在 `Resources` 文件夹内，因此 UI 加载以该路径为主。
 
-* folder: UI 所在文件夹。
-* package: 需要展示的 UI 的 FGUI 包名。
-* name: 自定义名称。
-* parent: UI 树层级。
+- folder: UI 所在文件夹。
+- package: 需要展示的 UI 的 FGUI 包名。
+- name: 自定义名称。
+- parent: UI 树层级。
 
 假如 UI 在 `Resources\FGUI` 文件夹下，则：
 
-```C# 
+```C#
 UIManager.Ins().ShowUI<TestView>("FGUI", "Test", "TestView0");
 ```
 
 如果我们需要在某窗口打开一个子级窗口，则使用如下方法：
 
-```C# 
+```C#
 UINode first = UIManager.Ins().ShowUI<TestView>("FGUI", "Test", "TestView0");
 UIManager.Ins().ShowUI<TestView>("FGUI", "Test", "TestView1", first);
 ```
@@ -81,7 +81,7 @@ UIManager.Ins().ShowUI<TestView>("FGUI", "Test", "TestView1", first);
 
 当窗口隐藏的时候，所有子级窗口都会一并隐藏。
 
-```C# 
+```C#
 //uiChild是BaseView保存的UINode
 HideUI(uiChild);
 ```
@@ -92,7 +92,7 @@ HideUI(uiChild);
 
 默认不传入 `parent` 的话会从根节点开始查找；传入的话从 `parent` 节点开始查找。
 
-```C# 
+```C#
 UINode node = UIManager.Ins().GetUI("TestView0");
 ```
 
@@ -102,7 +102,7 @@ UINode node = UIManager.Ins().GetUI("TestView0");
 
 当窗口销毁的时候，所有子级窗口都会一并销毁。
 
-```C# 
+```C#
 UIManager.Ins().DisposeUI(uiNode);
 ```
 
@@ -110,9 +110,9 @@ UIManager.Ins().DisposeUI(uiNode);
 
 ```mermaid
 flowchart TB;
-    
+
     subgraph A["OnAwake 生命周期"]
-        OnAwake --> Bind --> BindClass;
+        OnAwake --> Bind --> InitData --> BindClass;
     end
 
     subgraph B["Show 生命周期"]
@@ -122,7 +122,7 @@ flowchart TB;
     subgraph C["Hide 生命周期"]
         Hide --> TweenOut --> OnHide;
     end
-    
+
     InitConfig --> A;
     A --> B;
     B --> C;
@@ -135,17 +135,18 @@ InitConfig 和 OnAwake 方法只有在第一次创建窗口的时候会调用。
 
 可以重写的生命周期：
 
-* InitConfig: 初始化配置。
-* OnShow: UI 展示事件。
-* OnHide: UI 隐藏事件。
-* TweenIn: 展示缓动。
-* TweenOut: 隐藏缓动。
+- InitConfig: 初始化配置。
+- InitData: 初始化数据。
+- OnShow: UI 展示事件。
+- OnHide: UI 隐藏事件。
+- TweenIn: 展示缓动。
+- TweenOut: 隐藏缓动。
 
 ## 案例
 
 不包含所有调用，但是大概的调用都有。
 
-```C# 
+```C#
 using FairyGUI;
 using System.Collections;
 using System.Collections.Generic;
@@ -168,7 +169,7 @@ public class TestView : BaseView
 
     [UIDataBind(UIType.TextInput, "6")]
     private StringUIProp _input { get; set; }
-    
+
     [UIDataBind(UIType.ComboBox,"9","1","b")]
     private DoubleUIProp _comboBoxIndex { get; set; }
 
@@ -239,7 +240,7 @@ public class TestView : BaseView
     {
         ConsoleUtils.Log("滑动条",_slideValue.Get());
     }
-    
+
     [UIActionBind(UIAction.ComboBox,"9")]
     private void OnComboBoxChanged()
     {
@@ -258,13 +259,13 @@ public class TestView : BaseView
     // {
     //     main.x = -500;
     //     AddTween(TweenTarget.X,500,2000,TweenEaseType.CircOut);
-    //     
+    //
     //     main.y = 500;
     //     AddTween(TweenTarget.Y,-500,2000,TweenEaseType.Linear);
-    //     
+    //
     //     main.scaleX = 0.5f;
     //     AddTween(TweenTarget.ScaleX,0.5f,2000,TweenEaseType.CircOut);
-    //     
+    //
     //     AddTween(TweenTarget.Rotation,50,2000,TweenEaseType.CircOut);
     // }
 
